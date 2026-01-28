@@ -91,7 +91,7 @@ async function submitForm() {
     const payload = {
         accessToken: localStorage.getItem('discord_token'),
     };
-	const queryString = `?accessToken=${encodeURIComponent(payload.accessToken)}&title=${encodeURIComponent(payload.title)}&description=${encodeURIComponent(payload.description)}`;
+	const queryString = `?accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
 		const res = await fetch(CONFIG.GAS_URL + queryString, {
