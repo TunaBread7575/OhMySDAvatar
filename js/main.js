@@ -103,12 +103,12 @@ async function submitForm() {
 		//recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token')
     };
-	const queryString = `?gettype=${encodeURIComponent(payload.gettype)}`+
-						//`&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}`+
-						`&accessToken=${encodeURIComponent(payload.accessToken)}`;
+	const queryString = `?recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}&accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
-		const res = await fetch(CONFIG.GAS_URL + queryString, {method: 'GET'});
+		const res = await fetch(CONFIG.GAS_URL + queryString, {
+			method: 'GET'
+		});
         const result = await res.json();
         if (result.status == 200) {
 			alert(`신청 완료! 신청ID: ${result.id}`);
