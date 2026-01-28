@@ -90,8 +90,6 @@ async function submitForm() {
 
     const payload = {
         accessToken: localStorage.getItem('discord_token'),
-        title: document.getElementById('title').value,
-        description: document.getElementById('description').value
     };
 	const queryString = `?accessToken=${encodeURIComponent(payload.accessToken)}&title=${encodeURIComponent(payload.title)}&description=${encodeURIComponent(payload.description)}`;
 
