@@ -103,7 +103,7 @@ async function submitForm() {
 			sendToDiscord(result.id, selectedImages);
 			checkAuthAndGo('status');
 		} else if(result.status == 400) {
-			alert(`신청 실패. 신청이 마감 되었습니다.`);
+			alert(`신청 실패. ${result.message}`);
         } else {
             throw new Error(result.message);
         }
