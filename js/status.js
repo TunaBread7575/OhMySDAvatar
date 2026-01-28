@@ -31,7 +31,7 @@ onSnapshot(doc(db, "status", "vyVgDB8Y4PFoFNHaZyNS"), (docSnap) => {
             statusBadge.innerText = "신청 가능";
             statusBadge.className = "bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold";
             applyBtn.disabled = false;
-            applyBtn.innerText = "신청서 제출하기";
+            applyBtn.innerText = "신청하기";
         } else {
             statusBadge.innerText = "신청 마감";
             statusBadge.className = "bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-bold";

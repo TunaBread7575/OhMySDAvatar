@@ -101,13 +101,15 @@ async function submitForm() {
         if (result.status == 200) {
 			alert(`신청 완료! 신청ID: ${result.id}`);
 			sendToDiscord(result.id, selectedImages);
-            //location.href = "success.html?id=" + result.id; // 완료 페이지로 이동하며 ID 전달
+			checkAuthAndGo('status');
+		} else if(result.status == 400) {
+			alert(`신청 실패. 신청이 마감 되었습니다.`);
         } else {
             throw new Error(result.message);
         }
     } catch (e) {
 		console.log(queryString);
-        alert("제출 실패: GAS 주소를 확인하세요.",e);
+        alert("제출 실패: 나중에 다시 시도해주세요.",e);
     } finally {
         btn.disabled = false;
         btn.innerText = "신청서 제출하기";
