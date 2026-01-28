@@ -105,9 +105,10 @@
     <script>
         // --- 설정 ---
         const CONFIG = {
-            GAS_URL: "YOUR_GAS_WEB_APP_URL",
+            GAS_URL: "https://script.google.com/macros/s/AKfycbwUU3-AstFdjuKGIT8N9sUT2UxXAWs2hearTmSvhnBlQJGinNW-wfpkNVdDi1E3FGQ2jQ/exec",
             DISCORD_CLIENT_ID: "1465944562576130184",
-            REDIRECT_URI: window.location.origin + window.location.pathname
+            REDIRECT_URI: window.location.origin + window.location.pathname,
+			OAuth2Scopes: "identify"
         };
 
         // --- 페이지 전환 로직 ---
@@ -124,7 +125,7 @@
 
         // --- 인증 로직 ---
         function loginDiscord() {
-            const url = `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&response_type=token&scope=identify`;
+            const url = `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&response_type=token&scope=${CONFIG.OAuth2Scopes}`;
             location.href = url;
         }
 
