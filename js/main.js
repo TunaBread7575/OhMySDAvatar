@@ -101,14 +101,14 @@ async function submitForm() {
     const payload = {
 		gettype: 0,
 		recaptchaToken: token,
-        accessToken: localStorage.getItem('discord_token'),
+        accessToken: localStorage.getItem('discord_token')
     };
-	const queryString = `?accessToken=${encodeURIComponent(payload.accessToken)}`;
+	const queryString = `?gettype=${encodeURIComponent(payload.gettype)}`+
+						`&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}`+
+						`&accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
-		const res = await fetch(CONFIG.GAS_URL + queryString, {
-			method: 'GET'
-		});
+		const res = await fetch(CONFIG.GAS_URL + queryString, {method: 'GET'});
         const result = await res.json();
         if (result.status == 200) {
 			alert(`신청 완료! 신청ID: ${result.id}`);
@@ -130,18 +130,26 @@ async function submitForm() {
 }
 
 async function sendToDiscord(id, base64Data, token) {
-    const response = await fetch(CONFIG.GAS_URL, {
-        method: 'GET',
-        body: JSON.stringify({
-			gettype: 1,
-            image: base64Data,
-            fileName: fileName,
-			commissionId: id,
-            userName: user.username,
-			accessToken: localStorage.getItem('discord_token'),
-			recaptchaToken: token,
-        })
-    });
+
+	const payload = {
+		gettype: 1,
+        image: base64Data,
+        fileName: fileName,
+		commissionId: id,
+        userName: user.username,
+		accessToken: localStorage.getItem('discord_token'),
+		recaptchaToken: token,
+    };
+
+	const queryString = `?gettype=${encodeURIComponent(payload.gettype)}`+
+						`&image=${encodeURIComponent(payload.image)}`+
+						`&fileName=${encodeURIComponent(payload.fileName)}`+
+						`&commissionId=${encodeURIComponent(payload.commissionId)}`+
+						`&userName=${encodeURIComponent(payload.userName)}`+
+						`&accessToken=${encodeURIComponent(payload.accessToken)}`+
+						`&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}`;
+						
+    const response = await fetch(CONFIG.GAS_URL + queryString, {method: 'GET'});
         
     const result = await response.json();
     console.log("결과:", result);
