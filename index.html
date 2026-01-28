@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRC Avatar Commission</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body { font-family: 'Pretendard', sans-serif; background-color: #f9fafb; }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="text-xl font-bold text-gray-800 cursor-pointer" onclick="showPage('home')">Oh My <span class="text-indigo-600">SD Avatar</span></div>
+            <div class="flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-indigo-600">홈</a>
+                <a href="javascript:void(0)" onclick="checkAuthAndGo('status')" class="hover:text-indigo-600">신청현황</a>
+                <div id="user-profile" class="hidden flex items-center gap-2 border-l pl-4">
+                    <img id="user-avatar" class="w-8 h-8 rounded-full border">
+                    <span id="user-name" class="text-gray-900 font-bold"></span>
+                    <button onclick="logout()" class="text-xs text-red-500 underline">로그아웃</button>
+                </div>
+                <button id="nav-login-btn" onclick="showPage('login')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">시작하기</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-10">
+        
+        <section id="home-page" class="page-section active text-center">
+            <div class="py-20">
+                <h1 class="text-5xl font-extrabold text-gray-900 mb-6">나만의 아바타를<br>더욱 특별하게.</h1>
+                <p class="text-lg text-gray-600 mb-10">VRC 아바타 커미션 - 나만의 아바타를 귀여운 SD 캐릭터로.</p>
+                <div class="flex justify-center gap-4">
+                    <button onclick="checkAuthAndGo('form')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition">커미션 신청하기</button>
+                    <button onclick="checkAuthAndGo('status')" class="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition">현황 조회</button>
+                </div>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-3xl p-8 flex justify-around items-center">
+                <div class="text-center">
+                    <div class="text-sm text-gray-500 mb-1">현재 슬롯</div>
+                    <div class="text-2xl font-bold text-indigo-600">2 / 3</div>
+                </div>
+                <div class="h-10 w-px bg-gray-200"></div>
+                <div class="text-center">
+                    <div class="text-sm text-gray-500 mb-1">평균 소요 기간</div>
+                    <div class="text-2xl font-bold text-gray-800">7일 이내</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="login-page" class="page-section">
+            <div class="max-w-sm mx-auto bg-white border border-gray-200 rounded-3xl p-10 text-center shadow-sm">
+                <i class="fab fa-discord text-6xl text-[#5865F2] mb-6"></i>
+                <h2 class="text-2xl font-bold mb-4">로그인이 필요합니다</h2>
+                <p class="text-gray-500 mb-8 text-sm">진행 상황 알림을 위해 디스코드 로그인을 사용합니다.</p>
+                <button onclick="loginDiscord()" class="w-full bg-[#5865F2] text-white py-4 rounded-xl font-bold hover:opacity-90 transition flex items-center justify-center gap-2">
+                    <i class="fab fa-discord"></i> 디스코드로 계속하기
+                </button>
+            </div>
+        </section>
+
+        <section id="form-page" class="page-section">
+            <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+                <h2 class="text-2xl font-bold mb-8">커미션 신청서 작성</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">신청 제목</label>
+                        <input type="text" id="title" class="w-full border border-gray-200 rounded-xl p-4 focus:outline-indigo-500" placeholder="예: 마누카 의상 수정 커미션">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">상세 요청사항</label>
+                        <textarea id="description" rows="5" class="w-full border border-gray-200 rounded-xl p-4 focus:outline-indigo-500" placeholder="수정하고 싶은 부분이나 참고할 내용을 적어주세요."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">결제 안내</label>
+                        <div class="bg-gray-50 rounded-xl p-4 border border-dashed border-gray-300">
+                            <p class="text-sm text-gray-600 mb-2 italic">입금 확인 후 작업이 시작됩니다.</p>
+                            <p class="font-medium text-gray-800 underline">Toss.me/yourid</p>
+                            <p class="font-medium text-gray-800 underline">PayPal.me/yourid</p>
+                        </div>
+                    </div>
+                    <button id="submit-btn" onclick="submitForm()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition">신청서 제출하기</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="status-page" class="page-section">
+            <h2 class="text-2xl font-bold mb-8">내 커미션 현황</h2>
+            <div id="status-list" class="space-y-4">
+                <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-500">
+                    신청 내역이 없습니다.
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- 설정 ---
+        const CONFIG = {
+            GAS_URL: "YOUR_GAS_WEB_APP_URL",
+            DISCORD_CLIENT_ID: "YOUR_DISCORD_CLIENT_ID",
+            REDIRECT_URI: window.location.origin + window.location.pathname
+        };
+
+        // --- 페이지 전환 로직 ---
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(pageId + '-page').classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function checkAuthAndGo(pageId) {
+            if (localStorage.getItem('discord_token')) showPage(pageId);
+            else showPage('login');
+        }
+
+        // --- 인증 로직 ---
+        function loginDiscord() {
+            const url = `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&response_type=token&scope=identify`;
+            location.href = url;
+        }
+
+        function handleAuthCallback() {
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const token = fragment.get('access_token');
+            if (token) {
+                localStorage.setItem('discord_token', token);
+                history.replaceState(null, null, ' '); // URL에서 토큰 제거
+                fetchUserInfo(token);
+            } else {
+                const storedToken = localStorage.getItem('discord_token');
+                if (storedToken) fetchUserInfo(storedToken);
+            }
+        }
+
+        async function fetchUserInfo(token) {
+            const res = await fetch("https://discord.com/api/users/@me", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const user = await res.json();
+                document.getElementById('user-profile').classList.remove('hidden');
+                document.getElementById('nav-login-btn').classList.add('hidden');
+                document.getElementById('user-name').innerText = user.username;
+                document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                localStorage.setItem('discord_id', user.id);
+            } else {
+                logout();
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        // --- 데이터 전송 및 조회 ---
+        async function submitForm() {
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerText = "처리 중...";
+
+            const payload = {
+                accessToken: localStorage.getItem('discord_token'),
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value
+            };
+
+            try {
+                const res = await fetch(CONFIG.GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+                alert(result.message);
+                if (res.ok) showPage('status');
+            } catch (e) {
+                alert("제출 실패: GAS 주소를 확인하세요.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "신청서 제출하기";
+            }
+        }
+
+        // 초기화
+        window.onload = handleAuthCallback;
+    </script>
+</body>
+</html>
