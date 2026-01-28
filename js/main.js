@@ -99,6 +99,7 @@ async function submitForm() {
 	grecaptcha.ready(function() {
     grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
     const payload = {
+		gettype: "db",
 		recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token'),
     };
@@ -130,9 +131,9 @@ async function submitForm() {
 
 async function sendToDiscord(id, base64Data, token) {
     const response = await fetch(CONFIG.GAS_URL, {
-		headers: { 'Content-Type': 'text/plain' },
-        method: 'POST',
+        method: 'GET',
         body: JSON.stringify({
+			gettype: "photo",
             image: base64Data,
             fileName: fileName,
 			commissionId: id,
