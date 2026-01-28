@@ -84,11 +84,14 @@ function logout() {
 
         // --- 데이터 전송 및 조회 ---
 async function submitForm() {
+	grecaptcha.ready(function() {
+    grecaptcha.execute('YOUR_SITE_KEY', {action: 'upload'}).then(async function(token) {
     const btn = document.getElementById('submit-btn');
     btn.disabled = true;
     btn.innerText = "처리 중...";
 
     const payload = {
+		recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token'),
     };
 	const queryString = `?accessToken=${encodeURIComponent(payload.accessToken)}`;
@@ -100,7 +103,7 @@ async function submitForm() {
         const result = await res.json();
         if (result.status == 200) {
 			alert(`신청 완료! 신청ID: ${result.id}`);
-			sendToDiscord(result.id, selectedImages);
+			sendToDiscord(result.id, selectedImages, token);
 			checkAuthAndGo('status');
 		} else if(result.status == 400) {
 			alert(`신청 실패. ${result.message}`);
@@ -114,24 +117,25 @@ async function submitForm() {
         btn.disabled = false;
         btn.innerText = "신청서 제출하기";
     }
+	});
+	});
 }
 
-async function sendToDiscord(id, base64Data) {
-    const webhookUrl = "비밀처리";
-    const formData = new FormData();
-
-	for (let i = 0; i < 4; i++)
-	{
-    	const res = await fetch(base64Data[i]);
-    	const blob = await res.blob();
-        formData.append(`file${i}`, blob, `ref_${id}_${i}.png`);
-    }
-	formData.append('payload_json', JSON.stringify({
-        content: `📂 **신청 식별자:** \`${id}\``
-    }));
-    
-
-    await fetch(webhookUrl, { method: 'POST', body: formData });
+async function sendToDiscord(id, base64Data, token) {
+    const response = await fetch(CONFIG.GAS_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+            image: base64Data,
+            fileName: fileName,
+			commissionId: id,
+            userName: user.username,
+			accessToken: localStorage.getItem('discord_token'),
+			recaptchaToken: token,
+        })
+    });
+        
+    const result = await response.json();
+    console.log("결과:", result);
 }
 
 // 초기화
