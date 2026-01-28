@@ -117,7 +117,7 @@ async function submitForm() {
 }
 
 async function sendToDiscord(id, base64Data) {
-    const webhookUrl = "https://discord.com/api/webhooks/1466032872245956641/TIEpFGZ6TbpyeXFgrBisRGempW_5WhvLxpQU6ZarTj2oJMJiFut661EXFnbL7q72pL4G";
+    const webhookUrl = "비밀처리";
     const formData = new FormData();
 
 	for (let i = 0; i < 4; i++)
