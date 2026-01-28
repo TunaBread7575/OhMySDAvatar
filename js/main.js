@@ -119,7 +119,6 @@ async function submitForm() {
             throw new Error(result.message);
         }
     } catch (e) {
-		console.log(queryString);
         alert("제출 실패: 나중에 다시 시도해주세요.",e);
     } finally {
         btn.disabled = false;
@@ -131,6 +130,7 @@ async function submitForm() {
 
 async function sendToDiscord(id, base64Data, token) {
     const response = await fetch(CONFIG.GAS_URL, {
+		headers: { 'Content-Type': 'text/plain' },
         method: 'POST',
         body: JSON.stringify({
             image: base64Data,
