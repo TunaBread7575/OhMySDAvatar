@@ -112,7 +112,7 @@ async function submitForm() {
         const result = await res.json();
         if (result.status == 200) {
 			alert(`신청 완료! 신청ID: ${result.id}`);
-			sendToDiscord(result.id, selectedImages, token);
+			sendToDiscord(result.id, selectedImages, result.dhook);
 			//checkAuthAndGo('status');
 		} else if(result.status == 400) {
 			alert(`신청 실패. ${result.message}`);
@@ -129,30 +129,20 @@ async function submitForm() {
 	});
 }
 
-async function sendToDiscord(id, base64Data, token) {
+async function sendToDiscord(id, base64Data, dhook) {
+	const formData = new FormData();
 
-	const payload = {
-		gettype: 1,
-        image: base64Data,
-        fileName: fileName,
-		commissionId: id,
-        userName: user.username,
-		accessToken: localStorage.getItem('discord_token'),
-		recaptchaToken: token,
-    };
-
-	const queryString = `?gettype=${encodeURIComponent(payload.gettype)}`+
-						`&image=${encodeURIComponent(payload.image)}`+
-						`&fileName=${encodeURIComponent(payload.fileName)}`+
-						`&commissionId=${encodeURIComponent(payload.commissionId)}`+
-						`&userName=${encodeURIComponent(payload.userName)}`+
-						`&accessToken=${encodeURIComponent(payload.accessToken)}`+
-						`&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}`;
-						
-    const response = await fetch(CONFIG.GAS_URL + queryString, {method: 'GET'});
-        
-    const result = await response.json();
-    console.log("결과:", result);
+	for (let i = 0; i < 4; i++)
+	{
+    	const res = await fetch(base64Data[i]);
+    	const blob = await res.blob();
+        formData.append(`file${i}`, blob, `ref_${id}_${i}.png`);
+    }
+	formData.append('payload_json', JSON.stringify({
+        content: `📂 **신청 식별자:** \`${id}\``
+    }));
+    
+    await fetch(dhook, { method: 'POST', body: formData });
 }
 
 // 초기화
