@@ -10,7 +10,7 @@ async function previewImg(index) {
 
     try {
         // 1200px 너비, 화질 0.7(70%)로 압축
-        const compressedBase64 = await compressImage(file, 1200, 0.7);
+        const compressedBase64 = await compressImage(file, 1920, 0.9);
         
         // 미리보기 화면 업데이트
         preview.innerHTML = `<img src="${compressedBase64}" class="w-full h-full object-cover">`;
@@ -84,6 +84,14 @@ function logout() {
 
         // --- 데이터 전송 및 조회 ---
 async function submitForm() {
+	for(var i = 0; i < selectedImages.length; i++)
+	{
+		if(!selectedImages[i])
+		{
+			alert("사진을 전부 채워주세요!");
+			return;
+		}
+	}
 	const btn = document.getElementById('submit-btn');
     btn.disabled = true;
     btn.innerText = "처리 중...";
@@ -104,7 +112,7 @@ async function submitForm() {
         if (result.status == 200) {
 			alert(`신청 완료! 신청ID: ${result.id}`);
 			sendToDiscord(result.id, selectedImages, token);
-			checkAuthAndGo('status');
+			//checkAuthAndGo('status');
 		} else if(result.status == 400) {
 			alert(`신청 실패. ${result.message}`);
         } else {
@@ -122,20 +130,28 @@ async function submitForm() {
 }
 
 async function sendToDiscord(id, base64Data, token) {
-    const response = await fetch(CONFIG.GAS_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-            image: base64Data,
-            fileName: fileName,
-			commissionId: id,
-            userName: user.username,
-			accessToken: localStorage.getItem('discord_token'),
-			recaptchaToken: token,
-        })
-    });
-        
-    const result = await response.json();
-    console.log("결과:", result);
+	try {
+		const response = await fetch(CONFIG.GAS_URL, {
+			method: 'POST',
+			body: JSON.stringify({
+				image: base64Data,
+				fileName: fileName,
+				commissionId: id,
+				userName: user.username,
+				accessToken: localStorage.getItem('discord_token'),
+				recaptchaToken: token,
+			})
+		});
+		return ContentService.createTextOutput(JSON.stringify({
+		status: "success",
+		message: "데이터 전송 성공!"
+		})).setMimeType(ContentService.MimeType.JSON);
+	}catch(err){
+		return ContentService.createTextOutput(JSON.stringify({
+		status: "error",
+		message: err.toString()
+		})).setMimeType(ContentService.MimeType.JSON);
+	}
 }
 
 // 초기화
