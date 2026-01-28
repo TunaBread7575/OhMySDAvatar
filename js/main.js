@@ -84,12 +84,12 @@ function logout() {
 
         // --- 데이터 전송 및 조회 ---
 async function submitForm() {
-	grecaptcha.ready(function() {
-    grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'upload'}).then(async function(token) {
-    const btn = document.getElementById('submit-btn');
+	const btn = document.getElementById('submit-btn');
     btn.disabled = true;
     btn.innerText = "처리 중...";
-
+	
+	grecaptcha.ready(function() {
+    grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
     const payload = {
 		recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token'),
