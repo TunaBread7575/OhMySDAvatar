@@ -100,7 +100,7 @@ async function submitForm() {
     grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
     const payload = {
 		gettype: 0,
-		recaptchaToken: token,
+		//recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token')
     };
 	const queryString = `?gettype=${encodeURIComponent(payload.gettype)}`+
