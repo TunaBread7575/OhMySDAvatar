@@ -110,8 +110,8 @@ async function submitForm() {
 		});
         const result = await res.json();
         if (result.status == 200) {
-			alert(`신청 완료! 신청ID: ${result.id}`);
 			sendToDiscord(result.id, selectedImages, result.dhook);
+			alert(`신청 완료! 신청ID: ${result.id}`);
 			checkAuthAndGo('status');
 		} else if(result.status == 400) {
 			alert(`신청 실패. ${result.message}`);
