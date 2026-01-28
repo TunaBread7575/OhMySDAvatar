@@ -130,28 +130,20 @@ async function submitForm() {
 }
 
 async function sendToDiscord(id, base64Data, token) {
-	try {
-		const response = await fetch(CONFIG.GAS_URL, {
-			method: 'POST',
-			body: JSON.stringify({
-				image: base64Data,
-				fileName: fileName,
-				commissionId: id,
-				userName: user.username,
-				accessToken: localStorage.getItem('discord_token'),
-				recaptchaToken: token,
-			})
-		});
-		return ContentService.createTextOutput(JSON.stringify({
-		status: "success",
-		message: "데이터 전송 성공!"
-		})).setMimeType(ContentService.MimeType.JSON);
-	}catch(err){
-		return ContentService.createTextOutput(JSON.stringify({
-		status: "error",
-		message: err.toString()
-		})).setMimeType(ContentService.MimeType.JSON);
-	}
+    const response = await fetch(CONFIG.GAS_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+            image: base64Data,
+            fileName: fileName,
+			commissionId: id,
+            userName: user.username,
+			accessToken: localStorage.getItem('discord_token'),
+			recaptchaToken: token,
+        })
+    });
+        
+    const result = await response.json();
+    console.log("결과:", result);
 }
 
 // 초기화
