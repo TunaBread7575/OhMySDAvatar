@@ -96,14 +96,14 @@ async function submitForm() {
     btn.disabled = true;
     btn.innerText = "처리 중...";
 	
-	grecaptcha.ready(function() {
-    grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
+	//grecaptcha.ready(function() {
+    //grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
     const payload = {
 		gettype: 0,
 		//recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token')
     };
-	const queryString = `?recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}&accessToken=${encodeURIComponent(payload.accessToken)}`;
+	const queryString = `?accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
 		const res = await fetch(CONFIG.GAS_URL + queryString, {
@@ -125,8 +125,8 @@ async function submitForm() {
         btn.disabled = false;
         btn.innerText = "신청서 제출하기";
     }
-	});
-	});
+	//});
+	//});
 }
 
 async function sendToDiscord(id, base64Data, dhook) {
