@@ -104,7 +104,7 @@ async function submitForm() {
         accessToken: localStorage.getItem('discord_token')
     };
 	const queryString = `?gettype=${encodeURIComponent(payload.gettype)}`+
-						`&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}`+
+						//`&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}`+
 						`&accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
