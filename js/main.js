@@ -116,8 +116,6 @@ async function submitForm() {
 			//checkAuthAndGo('status');
 		} else if(result.status == 400) {
 			alert(`신청 실패. ${result.message}`);
-        } else {
-            throw new Error(result.message);
         }
     } catch (e) {
         alert("제출 실패: 나중에 다시 시도해주세요.",e);
