@@ -1,26 +1,20 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDPLjaN-UtlnZwbMcs4erWSaS0BhtxCBQE",
-  authDomain: "ohmysdavatar.firebaseapp.com",
-  projectId: "ohmysdavatar",
-  storageBucket: "ohmysdavatar.firebasestorage.app",
-  messagingSenderId: "769813866354",
-  appId: "1:769813866354:web:60818e05ff4e95fd1a9feb"
-};
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // 상태를 감시할 엘리먼트들 (HTML에 해당 ID가 있어야 합니다)
 const statusBadge = document.getElementById('status-badge');
 const slotText = document.getElementById('slot-text');
-const slotStatus = document.getElementById('slot-status');
+const processTime = document.getElementById('process-time');
 const applyBtn = document.getElementById('submit-btn');
 
 onSnapshot(doc(db, "status", "vyVgDB8Y4PFoFNHaZyNS"), (docSnap) => {
     if (docSnap.exists()) {
         const data = docSnap.data();
+
+		processTime.innerText = data.processTime;
         
         // 1. 슬롯 텍스트 업데이트 (0 / 5)
         slotText.innerText = `${data.currentSlot} / ${data.maxSlot}`;

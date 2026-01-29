@@ -9,12 +9,14 @@
 	<script src="./js/imagecompress.js"></script>
 	<script src="./js/main.js"></script>
 	<script type="module" src="./js/status.js"></script>
+	<script type="module" src="./js/announcement.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { font-family: 'Pretendard', sans-serif; background-color: #f9fafb; }
         .page-section { display: none; }
         .page-section.active { display: block; }
+		.announcement-active { bottom: 24px !important; }
     </style>
 
 </head>
@@ -60,7 +62,7 @@
 				<div class="h-10 w-px bg-gray-200"></div>
 				<div class="text-center">
                     <div class="text-sm text-gray-500 mb-1">평균 소요 기간</div>
-                    <div class="text-2xl font-bold text-gray-800">7일 이내</div>
+                    <div class="text-2xl font-bold text-gray-800" id="process-time">7일 이내</div>
                 </div>
             </div>
         </section>
@@ -122,7 +124,19 @@
                 </div>
             </div>
         </section>
-
     </div>
+	<div id="announcement-bar" class="fixed bottom-[-150px] left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl text-white p-5 rounded-3xl shadow-2xl transition-all duration-500 ease-in-out z-[100] flex items-center justify-between gap-5">
+    <div class="flex items-center gap-4">
+        <div id="icon-background" class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-lg border border-white/10">
+            <i class="fas fa-bullhorn text-xl text-white"></i>
+        </div>
+        <p id="announcement-text" class="text-base font-semibold line-clamp-2 leading-snug tracking-tight">
+            
+        </p>
+    </div>
+    <button onclick="closeAnnouncement()" class="text-white/60 hover:text-white shrink-0 p-1 transition-colors">
+        <i class="fas fa-times text-xl"></i>
+    </button>
+</div>
 </body>
 </html>

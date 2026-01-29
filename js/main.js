@@ -29,6 +29,14 @@ const CONFIG = {
     REDIRECT_URI: window.location.origin + window.location.pathname,
 	OAuth2Scopes: "identify"
 };
+const firebaseConfig = {
+  apiKey: "AIzaSyDPLjaN-UtlnZwbMcs4erWSaS0BhtxCBQE",
+  authDomain: "ohmysdavatar.firebaseapp.com",
+  projectId: "ohmysdavatar",
+  storageBucket: "ohmysdavatar.firebasestorage.app",
+  messagingSenderId: "769813866354",
+  appId: "1:769813866354:web:60818e05ff4e95fd1a9feb"
+};
 
         // --- 페이지 전환 로직 ---
 function showPage(pageId) {
