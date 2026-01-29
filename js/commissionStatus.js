@@ -15,7 +15,8 @@ async function RequestCommissionDB()
 				});
 				const result = await res.json();
 				if (result.header.status == 200) {
-					renderStatusList(result.header.db);
+					alert(`불러오기 성공!. ${result.header.message}`);
+					//renderStatusList(result.header.db);
 				} else if(result.header.status == 401) {
 					alert(`불러오기 실패. ${result.header.message}`);
 				} else {
