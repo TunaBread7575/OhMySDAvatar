@@ -107,10 +107,11 @@ async function submitForm() {
 	grecaptcha.ready(function() {
     grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
     const payload = {
+		requestType: 0,
 		recaptchaToken: token,
         accessToken: localStorage.getItem('discord_token')
     };
-	const queryString = `?recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}&accessToken=${encodeURIComponent(payload.accessToken)}`;
+	const queryString = `?requestType=${encodeURIComponent(payload.requestType)}&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}&accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
 		const res = await fetch(CONFIG.GAS_URL + queryString, {
