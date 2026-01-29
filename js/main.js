@@ -43,6 +43,8 @@ function showPage(pageId) {
     document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
     document.getElementById(pageId + '-page').classList.add('active');
     window.scrollTo(0,0);
+	if(pageId == 'status')
+		RequestCommissionDB();
 }
 
 function checkAuthAndGo(pageId) {
