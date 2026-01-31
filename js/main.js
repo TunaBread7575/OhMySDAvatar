@@ -103,9 +103,16 @@ async function submitForm() {
 		}
 	}
 	const btn = document.getElementById('submit-btn');
+	const comType = document.getElementById('commission-type-input').value;
+
+	if(comType == '')
+	{
+		alert("타입을 선택해주세요");
+		return;
+	}
+
     btn.disabled = true;
     btn.innerText = "처리 중...";
-	const comType = document.getElementById('commission-type-input').value;
 	
 	grecaptcha.ready(function() {
     grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
