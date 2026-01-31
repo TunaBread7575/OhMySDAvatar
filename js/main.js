@@ -105,15 +105,17 @@ async function submitForm() {
 	const btn = document.getElementById('submit-btn');
     btn.disabled = true;
     btn.innerText = "처리 중...";
+	const comType = document.getElementById('commission-type-input').value;
 	
 	grecaptcha.ready(function() {
     grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
     const payload = {
 		requestType: 0,
 		recaptchaToken: token,
+		commissionType: comType,
         accessToken: localStorage.getItem('discord_token')
     };
-	const queryString = `?requestType=${encodeURIComponent(payload.requestType)}&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}&accessToken=${encodeURIComponent(payload.accessToken)}`;
+	const queryString = `?requestType=${encodeURIComponent(payload.requestType)}&recaptchaToken=${encodeURIComponent(payload.recaptchaToken)}&commissionType=${encodeURIComponent(payload.commissionType)}&accessToken=${encodeURIComponent(payload.accessToken)}`;
 
     try {
 		const res = await fetch(CONFIG.GAS_URL + queryString, {
@@ -122,16 +124,20 @@ async function submitForm() {
         const result = await res.json();
         if (result.status == 200) {
 			sendToDiscord(result.id, selectedImages, result.dhook);
+			result = null;
 			alert(`신청 완료! 신청ID: ${result.id}`);
 			checkAuthAndGo('status');
 		} else if(result.status == 400) {
+			result = null;
 			alert(`신청 실패. ${result.message}`);
         } else {
             throw new Error(result.message);
         }
     } catch (e) {
+		result = null;
         alert("제출 실패: 나중에 다시 시도해주세요.",e);
     } finally {
+		result = null;
         btn.disabled = false;
         btn.innerText = "신청서 제출하기";
     }
@@ -151,7 +157,7 @@ async function sendToDiscord(id, base64Data, dhook) {
 	formData.append('payload_json', JSON.stringify({
         content: `📂 **신청 식별자:** \`${id}\``
     }));
-    
+    //plz don't troll...
     await fetch(dhook, { method: 'POST', body: formData });
 }
 
