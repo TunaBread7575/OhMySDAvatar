@@ -87,7 +87,7 @@ function renderStatusList(DBdata) {
 							${statusStyle.icon}
 						</div>
 						<div class="overflow-hidden">
-							<h3 class="font-bold text-gray-800 text-lg leading-tight">${data.ccommissionType}</h3>
+							<h3 class="font-bold text-gray-800 text-lg leading-tight">${data.commissionType}</h3>
 							<p class="text-[11px] text-gray-400 font-mono mt-0.5 opacity-80 truncate">
 								${data.commissionId}
 							</p>
