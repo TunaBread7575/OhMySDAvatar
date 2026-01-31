@@ -54,9 +54,9 @@ function renderStatusList(DBdata) {
 	const cleanList = DBdata.map(item => {
     const f = item.fields;
     return {
-        comissionId: f.comissionId?.stringValue || "", 
+        commissionId: f.commissionId?.stringValue || "", 
         discordId: f.discordId?.stringValue || "",
-		comissionType: f.comissionType?.stringValue || "",
+		commissionType: f.commissionType?.stringValue || "",
         discordName: f.discordName?.stringValue || "Unknown",
         date: f.date?.stringValue || "",
         status: Number(f.status?.integerValue || 0) 
@@ -74,7 +74,7 @@ function renderStatusList(DBdata) {
 			const statusStyle = getStatusDesign(data.status); // 상태별 색상 함수
 
 			const paymentButton = data.status === 0 
-				? `<button onclick="openPaymentModal('${data.comissionId}')" 
+				? `<button onclick="openPaymentModal('${data.commissionId}')" 
 						class="mt-2 md:mt-0 w-full md:w-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all active:scale-95">
 						결제수단 보기
 				</button>` 
@@ -87,9 +87,9 @@ function renderStatusList(DBdata) {
 							${statusStyle.icon}
 						</div>
 						<div class="overflow-hidden">
-							<h3 class="font-bold text-gray-800 text-lg leading-tight">${data.comissionType}</h3>
+							<h3 class="font-bold text-gray-800 text-lg leading-tight">${data.ccommissionType}</h3>
 							<p class="text-[11px] text-gray-400 font-mono mt-0.5 opacity-80 truncate">
-								${data.comissionId}
+								${data.commissionId}
 							</p>
 						</div>
 					</div>
