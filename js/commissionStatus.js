@@ -56,6 +56,7 @@ function renderStatusList(DBdata) {
     return {
         comissionId: f.comissionId?.stringValue || "", 
         discordId: f.discordId?.stringValue || "",
+		comissionType: f.comissionType?.stringValue || "",
         discordName: f.discordName?.stringValue || "Unknown",
         date: f.date?.stringValue || "",
         status: Number(f.status?.integerValue || 0) 

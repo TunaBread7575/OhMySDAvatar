@@ -131,20 +131,16 @@ async function submitForm() {
         const result = await res.json();
         if (result.status == 200) {
 			sendToDiscord(result.id, selectedImages, result.dhook);
-			result = null;
 			alert(`신청 완료! 신청ID: ${result.id}`);
 			checkAuthAndGo('status');
 		} else if(result.status == 400) {
-			result = null;
 			alert(`신청 실패. ${result.message}`);
         } else {
             throw new Error(result.message);
         }
     } catch (e) {
-		result = null;
         alert("제출 실패: 나중에 다시 시도해주세요.",e);
     } finally {
-		result = null;
         btn.disabled = false;
         btn.innerText = "신청서 제출하기";
     }
