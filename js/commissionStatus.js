@@ -129,7 +129,7 @@ function renderStatusList(DBdata) {
 
 	statusBar.classList.remove('hidden'); // 바 나타내기
 	statusBar.classList.add('flex');     // 레이아웃 적용
-	itemCountSpan.innerText = items.length; // 개수 업데이트
+	itemCountSpan.innerText = itemcount; // 개수 업데이트
 }
 
 // 모달 열기
