@@ -10,6 +10,7 @@
 	<script src="./js/main.js"></script>
 	<script src="./js/commissionStatus.js"></script>
 	<script src="./js/discord.js"></script>
+	<script src="./js/lang.js"></script>
 	<script type="module" src="./js/status.js"></script>
 	<script type="module" src="./js/announcement.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -37,15 +38,33 @@
         <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="text-xl font-bold text-gray-800 cursor-pointer" onclick="showPage('home')">Oh My <span class="text-indigo-600">SD Avatar</span></div>
             <div class="flex items-center gap-6 text-sm font-medium text-gray-600">
-                <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-indigo-600">홈</a>
-                <a href="javascript:void(0)" onclick="checkAuthAndGo('status')" class="hover:text-indigo-600">신청현황</a>
+				<div class="relative inline-block text-left" id="lang-dropdown-container">
+					<button onclick="toggleLangDropdown()" 
+							class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-gray-100 shadow-sm hover:bg-gray-50 transition-all text-gray-600">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+						</svg>
+						<span id="current-lang-text" class="text-xs font-bold uppercase">KO</span>
+					</button>
+
+					<div id="lang-dropdown" 
+						class="hidden absolute right-0 mt-2 w-28 origin-top-right bg-white border border-gray-100 rounded-2xl shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+						<div class="py-2 p-1">
+							<button onclick="changeLang('ko')" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-colors">한국어</button>
+							<button onclick="changeLang('en')" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-colors">English</button>
+							<button onclick="changeLang('ja')" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-colors">日本語</button>
+						</div>
+					</div>
+				</div>
+                <a data-i18n="nav.home" href="javascript:void(0)" onclick="showPage('home')" class="hover:text-indigo-600">홈</a>
+                <a data-i18n="nav.status" href="javascript:void(0)" onclick="checkAuthAndGo('status')" class="hover:text-indigo-600">신청현황</a>
                 <div id="user-profile" class="hidden flex items-center gap-2 border-l pl-4">
                     <img id="user-avatar" class="w-8 h-8 rounded-full border">
                     <span id="user-name" class="text-gray-900 font-bold"></span>
-                    <button onclick="logout()" class="text-xs text-red-500 underline">로그아웃</button>
+                    <button data-i18n="nav.login" onclick="logout()" class="text-xs text-red-500 underline">로그아웃</button>
                 </div>
-                <button id="nav-login-btn" onclick="showPage('login')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">시작하기</button>
-            </div>
+                <button data-i18n="nav.logout" id="nav-login-btn" onclick="showPage('login')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">시작하기</button>
+			</div>
         </div>
     </nav>
 
@@ -53,24 +72,24 @@
         
         <section id="home-page" class="page-section active text-center">
 			<div class="py-20">
-				<h1 class="text-5xl font-extrabold text-gray-900 mb-6">나만의 아바타를<br>더욱 특별하게.</h1>
-				<p class="text-lg text-gray-600 mb-10">VRC 아바타 커미션 - 나만의 아바타를 귀여운 SD 캐릭터로.</p>
+				<h1 data-i18n="home.headline" class="text-5xl font-extrabold text-gray-900 mb-6">나만의 아바타를<br>더욱 특별하게.</h1>
+				<p data-i18n="home.subheadline" class="text-lg text-gray-600 mb-10">VRC 아바타 커미션 - 나만의 아바타를 귀여운 SD 캐릭터로.</p>
 				
 				<div class="flex flex-col items-center gap-4">
 					<div class="flex justify-center gap-4">
-						<button onclick="checkAuthAndGo('form')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition">커미션 신청하기</button>
-						<button onclick="checkAuthAndGo('status')" class="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition">현황 조회</button>
+						<button data-i18n="home.applyBtn" onclick="checkAuthAndGo('form')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition">커미션 신청하기</button>
+						<button data-i18n="home.statusBtn" onclick="checkAuthAndGo('status')" class="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition">현황 조회</button>
 					</div>
 					
 					<button onclick="window.open(`https://discord.gg/KpbBvBteZm`);" 
                     class="group flex items-center gap-2 text-slate-400 hover:text-[#5865F2] transition-colors duration-300">
-					<span class="text-xs font-medium tracking-wide uppercase">실시간 문의 및 소식</span>
+					<span data-i18n="home.discordLabel" class="text-xs font-medium tracking-wide uppercase">실시간 문의 및 소식</span>
 					<div class="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-[#5865F2]"></div>
 						<div class="flex items-center gap-1.5">
 							<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
 								<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/>
 							</svg>
-							<span class="text-sm font-bold border-b border-dashed border-slate-300 group-hover:border-[#5865F2]">디스코드 서버</span>
+							<span data-i18n="home.discordServer" class="text-sm font-bold border-b border-dashed border-slate-300 group-hover:border-[#5865F2]">디스코드 서버</span>
 						</div>
 					</button>
 				</div>
@@ -78,17 +97,17 @@
 
 			<div class="bg-white border border-gray-200 rounded-3xl p-8 flex justify-around items-center">
 				<div class="text-center">
-					<div class="text-sm text-gray-500 mb-1">현재 슬롯</div>
+					<div data-i18n="home.slotTitle" class="text-sm text-gray-500 mb-1">현재 슬롯</div>
 					<div class="text-2xl font-bold text-indigo-600" id="slot-text">0 / 0</div>
 				</div>
 				<div class="h-10 w-px bg-gray-200"></div>
 				<div class="text-center">
-					<div class="text-sm text-gray-500 mb-1">신청 가능 여부</div>
+					<div data-i18n="home.availabilityTitle" class="text-sm text-gray-500 mb-1">신청 가능 여부</div>
 					<div class="text-2xl font-bold text-gray-800" id="status-badge"></div>
 				</div>
 				<div class="h-10 w-px bg-gray-200"></div>
 				<div class="text-center">
-					<div class="text-sm text-gray-500 mb-1">평균 소요 기간</div>
+					<div data-i18n="home.processTimeTitle" class="text-sm text-gray-500 mb-1">평균 소요 기간</div>
 					<div class="text-2xl font-bold text-gray-800" id="process-time">7일 이내</div>
 				</div>
 			</div>
@@ -97,27 +116,27 @@
         <section id="login-page" class="page-section">
             <div class="max-w-sm mx-auto bg-white border border-gray-200 rounded-3xl p-10 text-center shadow-sm">
                 <i class="fab fa-discord text-6xl text-[#5865F2] mb-6"></i>
-                <h2 class="text-2xl font-bold mb-4">로그인이 필요합니다</h2>
-                <p class="text-gray-500 mb-8 text-sm">진행 상황 알림을 위해 디스코드 로그인을 사용합니다.</p>
+                <h2 data-i18n="login.title" class="text-2xl font-bold mb-4">로그인이 필요합니다</h2>
+                <p data-i18n="login.desc" class="text-gray-500 mb-8 text-sm">진행 상황 알림을 위해 디스코드 로그인을 사용합니다.</p>
                 <button onclick="loginDiscord()" class="w-full bg-[#5865F2] text-white py-4 rounded-xl font-bold hover:opacity-90 transition flex items-center justify-center gap-2">
-                    <i class="fab fa-discord"></i> 디스코드로 계속하기
+                    <i data-i18n="login.discordLoginBtn" class="fab fa-discord"></i> 디스코드로 계속하기
                 </button>
             </div>
         </section>
 
         <section id="form-page" class="page-section">
 			<div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
-				<h2 class="text-2xl font-bold mb-8">커미션 신청서 작성</h2>
+				<h2 data-i18n="form.title" class="text-2xl font-bold mb-8">커미션 신청서 작성</h2>
 				<div class="space-y-6">
 
 					<div>
-						<label class="block text-sm font-bold text-gray-700 mb-2">커미션 타입</label>
+						<label data-i18n="form.commissionTypeLabel" class="block text-sm font-bold text-gray-700 mb-2">커미션 타입</label>
 						<div class="relative">
 							<button type="button" 
 									onclick="toggleDropdown()"
 									id="dropdown-btn"
 									class="w-full flex items-center justify-between px-5 py-4 bg-white border-2 border-gray-100 rounded-2xl text-gray-700 font-medium hover:border-indigo-200 transition-all focus:outline-none z-20 relative">
-								<span id="selected-value">타입을 선택해주세요</span>
+								<span data-i18n="form.commissionTypePlaceholder" id="selected-value">타입을 선택해주세요</span>
 								<svg id="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 								</svg>
@@ -127,12 +146,12 @@
 								class="hidden absolute z-10 w-full -mt-4 pt-4 bg-white border-2 border-gray-100 rounded-b-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-200">
 								<div class="py-1">
 									<div onclick="selectOption('A타입 (3등신)', '20,000원')" class="px-5 py-4 hover:bg-indigo-50 cursor-pointer flex justify-between items-center transition-colors">
-										<span class="font-medium text-gray-700">A타입 (3등신)</span>
-										<span class="text-sm text-indigo-500 font-bold">20,000원</span>
+										<span data-i18n="form.typeA" class="font-medium text-gray-700">A타입 (3등신)</span>
+										<span data-i18n="form.price" class="text-sm text-indigo-500 font-bold">20,000원</span>
 									</div>
 									<div onclick="selectOption('B타입 (2등신)', '20,000원')" class="px-5 py-4 hover:bg-indigo-50 cursor-pointer flex justify-between items-center transition-colors border-t border-gray-50">
-										<span class="font-medium text-gray-700">B타입 (2등신)</span>
-										<span class="text-sm text-indigo-500 font-bold">20,000원</span>
+										<span data-i18n="form.typeB" class="font-medium text-gray-700">B타입 (2등신)</span>
+										<span data-i18n="form.price" class="text-sm text-indigo-500 font-bold">20,000원</span>
 									</div>
 								</div>
 							</div>
@@ -181,41 +200,41 @@
 					</script>
 
 					<div>
-						<label class="block text-sm font-bold text-gray-700 mb-2">참고 이미지 (최대 4장)</label>
+						<label data-i18n="form.referenceImageLabel" class="block text-sm font-bold text-gray-700 mb-2">참고 이미지 (최대 4장)</label>
 						<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 							<div class="photo-slot">
 								<input type="file" id="img-0" accept="image/*" class="hidden" onchange="previewImg(0)">
 								<label for="img-0" id="preview-0" class="flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 overflow-hidden">
-									<span class="text-gray-400 text-xs text-center px-2">사진 추가</span>
+									<span data-i18n="form.addPhoto" class="text-gray-400 text-xs text-center px-2">사진 추가</span>
 								</label>
 							</div>
 							<div class="photo-slot">
 								<input type="file" id="img-1" accept="image/*" class="hidden" onchange="previewImg(1)">
 								<label for="img-1" id="preview-1" class="flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 overflow-hidden">
-									<span class="text-gray-400 text-xs text-center px-2">사진 추가</span>
+									<span data-i18n="form.addPhoto" class="text-gray-400 text-xs text-center px-2">사진 추가</span>
 								</label>
 							</div>
 							<div class="photo-slot">
 								<input type="file" id="img-2" accept="image/*" class="hidden" onchange="previewImg(2)">
 								<label for="img-2" id="preview-2" class="flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 overflow-hidden">
-									<span class="text-gray-400 text-xs text-center px-2">사진 추가</span>
+									<span data-i18n="form.addPhoto" class="text-gray-400 text-xs text-center px-2">사진 추가</span>
 								</label>
 							</div>
 							<div class="photo-slot">
 								<input type="file" id="img-3" accept="image/*" class="hidden" onchange="previewImg(3)">
 								<label for="img-3" id="preview-3" class="flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 overflow-hidden">
-									<span class="text-gray-400 text-xs text-center px-2">사진 추가</span>
+									<span data-i18n="form.addPhoto" class="text-gray-400 text-xs text-center px-2">사진 추가</span>
 								</label>
 							</div>
 						</div>
 					</div>
-					<button id="submit-btn" onclick="submitForm()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition">신청서 제출하기</button>
+					<button data-i18n="form.submitBtn" id="submit-btn" onclick="submitForm()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition">신청서 제출하기</button>
 				</div>
 			</div>
 		</section>
 
         <section id="status-page" class="page-section">
-            <h2 class="text-2xl font-bold mb-8">내 커미션 현황</h2>
+            <h2 data-i18n="status.title" class="text-2xl font-bold mb-8">내 커미션 현황</h2>
 
 			<div id="status-bar" class="hidden flex flex-col lg:flex-row items-center justify-between gap-4 mb-8 p-5 bg-white/50 backdrop-blur-md rounded-3xl border border-white shadow-sm">
 				<div class="flex items-center gap-3 min-w-[180px]">
@@ -224,19 +243,19 @@
 						<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
 					</div>
 					<div>
-						<p class="text-sm font-bold text-slate-800">커미션 진행 중</p>
-						<p class="text-[11px] text-slate-500 font-medium">현재 <span id="item-count" class="text-indigo-600 font-bold">0</span>개 활성화</p>
+						<p data-i18n="status.inProgress" class="text-sm font-bold text-slate-800">커미션 진행 중</p>
+						<p data-i18n="status.activeCount" class="text-[11px] text-slate-500 font-medium">현재 <span id="item-count" class="text-indigo-600 font-bold">0</span>개 활성화</p>
 					</div>
 				</div>
 
 				<div class="flex-1 text-center py-2 lg:py-0">
-					<p class="text-sm text-slate-600 font-medium leading-relaxed">
+					<p data-i18n="status.syncBar" class="text-sm text-slate-600 font-medium leading-relaxed">
 						원활한 커미션 진행을 위해 <span class="text-indigo-500 font-semibold">디스코드 서버 참여</span>와 <span class="text-indigo-500 font-semibold">동기화</span>를 진행해 주세요.
 					</p>
 				</div>
 
 				<div class="flex items-center gap-3 w-full lg:w-auto">
-					<a onclick="openDiscordModal()" 
+					<a data-i18n="status.syncBtn" onclick="openDiscordModal()" 
 					class="cursor-pointer flex-1 lg:flex-none flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-6 py-3 rounded-2xl font-bold text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-indigo-100">
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
 							<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/>
@@ -246,7 +265,7 @@
 				</div>
 			</div>
             <div id="status-list" class="space-y-4">
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-500">
+                <div data-i18n="status.empty" class="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-500">
                     신청 내역이 없습니다.
                 </div>
             </div>
@@ -307,8 +326,8 @@
 <div id="qrModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-md">
     <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl animate-fadeInUp text-center">
         <div class="mb-6">
-            <h2 class="text-xl font-bold text-gray-800">QR 코드로 간편 송금</h2>
-            <p class="text-xs text-gray-400 mt-1">카메라로 스캔하면 바로 연결됩니다.</p>
+            <h2 data-i18n="qr.title" class="text-xl font-bold text-gray-800">QR 코드로 간편 송금</h2>
+            <p data-i18n="qr.desc" class="text-xs text-gray-400 mt-1">카메라로 스캔하면 바로 연결됩니다.</p>
         </div>
 
         <div class="relative bg-gray-50 rounded-[2rem] p-6 mb-6 border-2 border-dashed border-gray-200">
@@ -323,14 +342,14 @@
 
         <div class="flex justify-center gap-3 mb-8">
             <!--<span class="px-3 py-1 bg-yellow-100 text-yellow-700 text-[10px] font-bold rounded-full">카카오페이</span>-->
-            <span class="px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full">토스</span>
+            <span data-i18n="qr.toss" class="px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full">토스</span>
         </div>
 
         <div class="space-y-3">
-			<button onclick="closePaymentModal()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition-all active:scale-[0.98]">
+			<button data-i18n="payment.confirmBtn" onclick="closePaymentModal()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition-all active:scale-[0.98]">
 					확인했습니다
 			</button>
-			<p class="text-[11px] text-center text-gray-400">입금 후 디스코드 서버에 메시지를 남겨주시면 확인 후 상태가 "대기중"으로 변경됩니다.</p>
+			<p data-i18n="payment.notice" class="text-[11px] text-center text-gray-400">입금 후 디스코드 서버에 메시지를 남겨주시면 확인 후 상태가 "대기중"으로 변경됩니다.</p>
 		</div>
     </div>
 </div>
@@ -346,20 +365,20 @@
                 </svg>
             </div>
             
-            <h3 class="text-xl font-bold text-slate-800 mb-2">잠깐만요! 📢</h3>
-            <p class="text-slate-500 text-sm leading-relaxed mb-8">
+            <h3 data-i18n="discordModal.title" class="text-xl font-bold text-slate-800 mb-2">잠깐만요! 📢</h3>
+            <p data-i18n="discordModal.desc" class="text-slate-500 text-sm leading-relaxed mb-8">
                 디스코드 서버에 먼저 <span class="text-indigo-600 font-bold underline text-base">합류한 상태</span>여야 진행이 가능합니다. 이미 서버에 계신가요?
             </p>
-			<p class="text-[11px] text-slate-400 mb-8">
+			<p data-i18n="discordModal.inquiry" class="text-[11px] text-slate-400 mb-8">
 				만약 동기화가 잘 진행되지 않는다면 <span class="font-medium text-slate-500">@administrator</span>에게 문의해 주세요.
 			</p>
             
             <div class="flex flex-col gap-3">
-                <button onclick="confirmDiscordJoin()" 
+                <button data-i18n="discordModal.confirmBtn" onclick="confirmDiscordJoin()" 
                         class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-100">
                     네, 확인했습니다!
                 </button>
-                <button onclick="closeDiscordModal()" 
+                <button data-i18n="discordModal.laterBtn" onclick="closeDiscordModal()" 
                         class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 py-4 rounded-2xl font-bold transition-all">
                     나중에 할게요
                 </button>

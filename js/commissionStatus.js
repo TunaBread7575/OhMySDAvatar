@@ -88,7 +88,7 @@ function renderStatusList(DBdata) {
 			const statusStyle = getStatusDesign(data.status); // 상태별 색상 함수
 
 			const paymentButton = data.status === 0 
-				? `<button onclick="openPaymentModal('${data.commissionId}')" 
+				? `<button data-i18n="commissionStatus.paymentCheck" onclick="openPaymentModal('${data.commissionId}')" 
 						class="mt-2 md:mt-0 w-full md:w-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all active:scale-95">
 						결제수단 보기
 				</button>` 
@@ -110,7 +110,7 @@ function renderStatusList(DBdata) {
 						
 					<div class="flex items-center gap-6 justify-between md:justify-end">
 						<div class="text-right">
-							<div class="text-xs text-gray-400 mb-1">신청일</div>
+							<div data-i18n="commissionStatus.orderDate" class="text-xs text-gray-400 mb-1">신청일</div>
 							<div class="text-sm font-medium text-gray-600">${data.date.substring(0,10)}</div>
 						</div>
 						<div class="${statusStyle.badgeColor} px-4 py-2 rounded-xl text-sm font-bold">
