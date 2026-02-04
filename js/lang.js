@@ -51,7 +51,7 @@ const translations = {
 		status: {
 			title: "내 커미션 현황",
 			inProgress: "커미션 진행 중",
-			activeCount: "현재 <span class='text-indigo-600 font-bold'>{count}</span>개 활성화",
+			activeCount: "현재 <span id='item-count' class='text-indigo-600 font-bold'>0</span>개 활성화",
 			empty: "신청 내역이 없습니다.",
 
 			syncBar: "원활한 커미션 진행을 위해 <span class='text-indigo-500 font-semibold'>디스코드 서버 참여</span>와 <span class='text-indigo-500 font-semibold'>동기화</span>를 진행해 주세요.",
@@ -146,7 +146,7 @@ const translations = {
 		status: {
 			title: "My Commissions",
 			inProgress: "Commission in Progress",
-			activeCount: "<span class='text-indigo-600 font-bold'>{count}</span> active project(s)",
+			activeCount: "<span id='item-count' class='text-indigo-600 font-bold'>0</span> active project(s)",
 			empty: "No commission history found.",
 
 			syncBar: "Please <span class='text-indigo-500 font-semibold'>Join our Discord</span> and <span class='text-indigo-500 font-semibold'>Sync</span> for a smooth process.",
@@ -240,7 +240,7 @@ const translations = {
 		status: {
 			title: "自分の依頼状況",
 			inProgress: "依頼進行中",
-			activeCount: "現在 <span class='text-indigo-600 font-bold'>{count}</span>件 進行中",
+			activeCount: "現在 <span id='item-count' class='text-indigo-600 font-bold'>0</span>件 進行中",
 			empty: "申し込み履歴がありません。",
 
 			syncBar: "スムーズな進行のため、<span class='text-indigo-500 font-semibold'>Discordサーバーへの参加</span>と<span class='text-indigo-500 font-semibold'>同期</span>を行ってください。",
