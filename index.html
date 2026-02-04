@@ -9,6 +9,7 @@
 	<script src="./js/imagecompress.js"></script>
 	<script src="./js/main.js"></script>
 	<script src="./js/commissionStatus.js"></script>
+	<script src="./js/discord.js"></script>
 	<script type="module" src="./js/status.js"></script>
 	<script type="module" src="./js/announcement.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -51,31 +52,47 @@
     <div class="max-w-4xl mx-auto px-4 py-10">
         
         <section id="home-page" class="page-section active text-center">
-            <div class="py-20">
-                <h1 class="text-5xl font-extrabold text-gray-900 mb-6">나만의 아바타를<br>더욱 특별하게.</h1>
-                <p class="text-lg text-gray-600 mb-10">VRC 아바타 커미션 - 나만의 아바타를 귀여운 SD 캐릭터로.</p>
-                <div class="flex justify-center gap-4">
-                    <button onclick="checkAuthAndGo('form')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition">커미션 신청하기</button>
-                    <button onclick="checkAuthAndGo('status')" class="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition">현황 조회</button>
-                </div>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-3xl p-8 flex justify-around items-center">
-                <div class="text-center">
-                    <div class="text-sm text-gray-500 mb-1">현재 슬롯</div>
-                    <div class="text-2xl font-bold text-indigo-600" id="slot-text">0 / 0</div>
-                </div>
-                <div class="h-10 w-px bg-gray-200"></div>
-                <div class="text-center">
-                    <div class="text-sm text-gray-500 mb-1">신청 가능 여부</div>
-                    <div class="text-2xl font-bold text-gray-800" id="status-badge"></div>
-                </div>
+			<div class="py-20">
+				<h1 class="text-5xl font-extrabold text-gray-900 mb-6">나만의 아바타를<br>더욱 특별하게.</h1>
+				<p class="text-lg text-gray-600 mb-10">VRC 아바타 커미션 - 나만의 아바타를 귀여운 SD 캐릭터로.</p>
+				
+				<div class="flex flex-col items-center gap-4">
+					<div class="flex justify-center gap-4">
+						<button onclick="checkAuthAndGo('form')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition">커미션 신청하기</button>
+						<button onclick="checkAuthAndGo('status')" class="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition">현황 조회</button>
+					</div>
+					
+					<button onclick="window.open(`https://discord.gg/KpbBvBteZm`);" 
+                    class="group flex items-center gap-2 text-slate-400 hover:text-[#5865F2] transition-colors duration-300">
+					<span class="text-xs font-medium tracking-wide uppercase">실시간 문의 및 소식</span>
+					<div class="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-[#5865F2]"></div>
+						<div class="flex items-center gap-1.5">
+							<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/>
+							</svg>
+							<span class="text-sm font-bold border-b border-dashed border-slate-300 group-hover:border-[#5865F2]">디스코드 서버</span>
+						</div>
+					</button>
+				</div>
+			</div>
+
+			<div class="bg-white border border-gray-200 rounded-3xl p-8 flex justify-around items-center">
+				<div class="text-center">
+					<div class="text-sm text-gray-500 mb-1">현재 슬롯</div>
+					<div class="text-2xl font-bold text-indigo-600" id="slot-text">0 / 0</div>
+				</div>
 				<div class="h-10 w-px bg-gray-200"></div>
 				<div class="text-center">
-                    <div class="text-sm text-gray-500 mb-1">평균 소요 기간</div>
-                    <div class="text-2xl font-bold text-gray-800" id="process-time">7일 이내</div>
-                </div>
-            </div>
-        </section>
+					<div class="text-sm text-gray-500 mb-1">신청 가능 여부</div>
+					<div class="text-2xl font-bold text-gray-800" id="status-badge"></div>
+				</div>
+				<div class="h-10 w-px bg-gray-200"></div>
+				<div class="text-center">
+					<div class="text-sm text-gray-500 mb-1">평균 소요 기간</div>
+					<div class="text-2xl font-bold text-gray-800" id="process-time">7일 이내</div>
+				</div>
+			</div>
+		</section>
 
         <section id="login-page" class="page-section">
             <div class="max-w-sm mx-auto bg-white border border-gray-200 rounded-3xl p-10 text-center shadow-sm">
@@ -199,6 +216,28 @@
 
         <section id="status-page" class="page-section">
             <h2 class="text-2xl font-bold mb-8">내 커미션 현황</h2>
+
+			<div id="status-bar" class="hidden flex flex-col md:flex-row items-center justify-between gap-4 mb-8 p-5 bg-white/50 backdrop-blur-md rounded-3xl border border-white shadow-sm">
+				<div class="flex items-center gap-3">
+					<div class="relative flex h-3 w-3">
+						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+						<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+					</div>
+					<div>
+						<p class="text-sm font-bold text-slate-800">커미션 진행 중</p>
+						<p class="text-[11px] text-slate-500">현재 <span id="item-count" class="text-indigo-600 font-bold">0</span>개의 작업이 활성화되어 있습니다.</p>
+					</div>
+				</div>
+				<div class="flex items-center gap-3 w-full md:w-auto">
+					<a onclick="openDiscordModal()" target="_blank"
+					class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-5 py-3 rounded-2xl font-bold text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-indigo-100">
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/>
+						</svg>
+						디스코드 동기화하기
+					</a>
+				</div>
+			</div>
             <div id="status-list" class="space-y-4">
                 <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-500">
                     신청 내역이 없습니다.
@@ -286,6 +325,39 @@
 			</button>
 			<p class="text-[11px] text-center text-gray-400">입금 후 디스코드 서버에 메시지를 남겨주시면 확인 후 상태가 "대기중"으로 변경됩니다.</p>
 		</div>
+    </div>
+</div>
+
+<div id="discord-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+    
+    <div class="relative bg-white w-full max-w-sm rounded-3xl shadow-2xl p-8 transform transition-all animate-in zoom-in-95 duration-200">
+        <div class="text-center">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-indigo-50 mb-6">
+                <svg class="h-8 w-8 text-[#5865F2]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/>
+                </svg>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-800 mb-2">잠깐만요! 📢</h3>
+            <p class="text-slate-500 text-sm leading-relaxed mb-8">
+                디스코드 서버에 먼저 <span class="text-indigo-600 font-bold underline text-base">합류한 상태</span>여야 진행이 가능합니다. 이미 서버에 계신가요?
+            </p>
+			<p class="text-[11px] text-slate-400 mb-8">
+				만약 동기화가 잘 진행되지 않는다면 <span class="font-medium text-slate-500">@administrator</span>에게 문의해 주세요.
+			</p>
+            
+            <div class="flex flex-col gap-3">
+                <button onclick="confirmDiscordJoin()" 
+                        class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-100">
+                    네, 확인했습니다!
+                </button>
+                <button onclick="closeDiscordModal()" 
+                        class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 py-4 rounded-2xl font-bold transition-all">
+                    나중에 할게요
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

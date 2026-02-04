@@ -1,5 +1,6 @@
 async function RequestCommissionDB()
 {
+	/*
 	showLoading();
 	grecaptcha.ready(function() {
 		grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
@@ -27,6 +28,7 @@ async function RequestCommissionDB()
 			}
 		});
 	});
+	*/
 }
 
 function showLoading() {
@@ -65,12 +67,22 @@ function renderStatusList(DBdata) {
     const statusListContainer = document.getElementById('status-list');
    
         if (cleanList.size) {
+			statusListContainer.innerHTML = `<div id="status-list" class="space-y-4">
+                <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-500">
+                    신청 내역이 없습니다.
+                </div>
+            </div>`;
             return;
         }
+
+		var itemcount = 0;
 
         // 2. 카드 생성
         let html = '';
         cleanList.forEach((data) => {
+			if(data.status > 0 && data.status < 3)
+				itemcount++;
+
 			const statusStyle = getStatusDesign(data.status); // 상태별 색상 함수
 
 			const paymentButton = data.status === 0 
@@ -109,6 +121,17 @@ function renderStatusList(DBdata) {
     	});
 		
     statusListContainer.innerHTML = html;
+
+	const statusBar = document.getElementById('status-bar');
+	const itemCountSpan = document.getElementById('item-count');
+
+	if (true/*itemcount > 0*/) {
+		statusBar.classList.remove('hidden'); // 바 나타내기
+		statusBar.classList.add('flex');     // 레이아웃 적용
+		itemCountSpan.innerText = items.length; // 개수 업데이트
+	} else {
+		statusBar.classList.add('hidden');    // 데이터 없으면 숨김
+	}
 }
 
 // 모달 열기
