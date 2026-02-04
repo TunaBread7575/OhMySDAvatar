@@ -52,4 +52,31 @@ window.closeAnnouncement = function() {
 }
 
 // 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', initAnnouncement);
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. 공지사항 초기화 (기존 기능)
+    if (typeof initAnnouncement === 'function') {
+        initAnnouncement();
+    }
+
+    // 2. 언어 자동 감지 및 설정 (새 기능)
+    const savedLang = localStorage.getItem('preferred-lang');
+    const browserLang = navigator.language.substring(0, 2);
+    const supportedLangs = ['ko', 'en', 'ja'];
+    
+    let finalLang = 'ko'; // 기본값
+
+    if (savedLang && supportedLangs.includes(savedLang)) {
+        finalLang = savedLang;
+    } else if (supportedLangs.includes(browserLang)) {
+        finalLang = browserLang;
+    }
+
+    // 페이지 언어 적용
+    setLanguage(finalLang);
+    
+    // 드롭다운 텍스트 동기화 (지구본 버튼이 있을 경우)
+    const langTextEl = document.getElementById('current-lang-text');
+    if (langTextEl) {
+        langTextEl.innerText = finalLang === 'ja' ? 'JP' : finalLang.toUpperCase();
+    }
+});

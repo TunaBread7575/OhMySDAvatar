@@ -164,31 +164,6 @@ async function sendToDiscord(id, base64Data, dhook) {
     await fetch(dhook, { method: 'POST', body: formData });
 }
 
-function toggleLangDropdown() {
-    const dropdown = document.getElementById('lang-dropdown');
-    dropdown.classList.toggle('hidden');
-}
-
-// 2. 언어 변경 및 드롭다운 닫기
-function changeLang(lang) {
-    // 이전에 만든 setLanguage 함수 호출
-    setLanguage(lang);
-    
-    // 현재 표시 언어 텍스트 업데이트
-    document.getElementById('current-lang-text').innerText = lang === 'ja' ? 'JP' : lang.toUpperCase();
-    
-    // 드롭다운 닫기
-    document.getElementById('lang-dropdown').classList.add('hidden');
-}
-
-// 3. 외부 클릭 시 드롭다운 닫기 (사용자 편의성)
-window.addEventListener('click', function(e) {
-    const container = document.getElementById('lang-dropdown-container');
-    const dropdown = document.getElementById('lang-dropdown');
-    if (!container.contains(e.target)) {
-        dropdown.classList.add('hidden');
-    }
-});
 
 // 초기화
 window.onload = handleAuthCallback;
