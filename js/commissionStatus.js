@@ -1,6 +1,7 @@
 async function RequestCommissionDB()
 {
-	
+	const statusBar = document.getElementById('status-bar');
+	statusBar.classList.add('hidden');
 	showLoading();
 	grecaptcha.ready(function() {
 		grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
