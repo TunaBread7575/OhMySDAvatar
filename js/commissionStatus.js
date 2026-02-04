@@ -1,6 +1,6 @@
 async function RequestCommissionDB()
 {
-	/*
+	
 	showLoading();
 	grecaptcha.ready(function() {
 		grecaptcha.execute('6LfFRFksAAAAACKLSrNr7a8XB8g0wDXAj2bpBTX9', {action: 'submit'}).then(async function(token) {
@@ -28,7 +28,7 @@ async function RequestCommissionDB()
 			}
 		});
 	});
-	*/
+	
 }
 
 function showLoading() {
